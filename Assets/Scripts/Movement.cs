@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
+    [Tooltip("Tracks that the player can move between.")]
     [SerializeField] Track[] tracks;
     int currentTrack = 1;
     Rigidbody rb;
+    [Tooltip("Pixel value the player needs to move their finger by to perform a swipe.")]
     [SerializeField] float swipeValue = 100f;
+    [Tooltip("Time value the player needs to perform a second tap by to perform a double tap.")]
     [SerializeField] float doubleTapTime;
     float doubleTapTimer;
+    [Tooltip("How quickly the player moves between lanes after a swipe.")]
     [SerializeField] float speed;
     [SerializeField] public float jumpForce, fallMultiplier, jumpVelocityFallOff, downwardVelocityCap = 15f;
+    public bool isGrounded, isGrinding;
 
-    [SerializeField] public bool isGrounded, isGrinding;
+    [Header("Raycast variables")]
     [SerializeField] Transform raycastStartPosition;
     [SerializeField] float raycastLength;
     [SerializeField] LayerMask raycastLayer;
