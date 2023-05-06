@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleType: 0
   prefab: {fileID: 8927885300625586526, guid: effc698d3fc8f6d4b87b0356c83937b7, type: 3}
-  laneSpawnDelay: 0.7
+  laneSpawnDelay: 1
