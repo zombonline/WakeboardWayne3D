@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] Obstacle[] obstacle, ramp, railing, misc;
+    [SerializeField] Obstacle[] prefabs, looseRamps, looseRailings, looseObstacles;
     [SerializeField] Track[] tracks;
     [SerializeField] float timeBetweenSpawns;
 
-    [SerializeField] float obstacleChance, rampChance, railingChance, miscChance;
+    [SerializeField] float prefabChance, looseRampChance, looseRailingChance, looseObstacleChance;
     float timer;
     public float timerEffector;
 
@@ -23,17 +23,21 @@ public class ObstacleSpawner : MonoBehaviour
         if(timer <= 0)
         {
             var randomNumber = Random.Range(0, 100f);
-            if (randomNumber < obstacleChance)
+            if (randomNumber < prefabChance)
             {
-                SpawnObstacle(obstacle);
+                SpawnObstacle(prefabs);
             }
-            else if(randomNumber < obstacleChance + rampChance)
+            else if(randomNumber < prefabChance + looseRampChance)
             {
-                SpawnObstacle(ramp);
+                SpawnObstacle(looseRamps);
             }
-            else if(randomNumber < obstacleChance + rampChance + railingChance)
+            else if(randomNumber < prefabChance + looseRampChance + looseRailingChance)
             {
-                SpawnObstacle(railing);
+                SpawnObstacle(looseRailings);
+            }
+            else
+            {
+                SpawnObstacle(looseObstacles);
             }
         }
     }
@@ -46,42 +50,35 @@ public class ObstacleSpawner : MonoBehaviour
         var randomTrackID = 0;
         switch (randomObstacle.obstacleType)
         {
-            
             case ObstacleType.singleLane:
                 randomTrackID = Random.Range(0, tracks.Length);
-                if (tracks[randomTrackID].trackOccupied)
+                if (tracks[randomTrackID].spawnDisabled)
                 {
                     unableToSpawn = true;
                 }
                 else
                 {
-                    tracks[randomTrackID].DelayTrackSpawning(randomObstacle.laneSpawnDelay);
                 }
                     break;
 
             case ObstacleType.doubleLane:
                 randomTrackID = Random.Range(0, tracks.Length-1);
-                if (tracks[randomTrackID].trackOccupied || tracks[randomTrackID + 1].trackOccupied)
+                if (tracks[randomTrackID].spawnDisabled || tracks[randomTrackID + 1].spawnDisabled)
                 {
                     unableToSpawn = true;
                 }
                 else
                 {
-                    tracks[randomTrackID].DelayTrackSpawning(randomObstacle.laneSpawnDelay);
-                    tracks[randomTrackID + 1].DelayTrackSpawning(randomObstacle.laneSpawnDelay);
                 }
                     break;
             case ObstacleType.tripleLane:
-                randomTrackID = 0;
-                if (tracks[randomTrackID].trackOccupied || tracks[randomTrackID + 1].trackOccupied || tracks[randomTrackID+2].trackOccupied)
+                randomTrackID = 1;
+                if (tracks[randomTrackID].spawnDisabled || tracks[randomTrackID + 1].spawnDisabled || tracks[randomTrackID-1].spawnDisabled)
                 {
                     unableToSpawn = true;
                 }
                 else
                 {
-                    tracks[randomTrackID].DelayTrackSpawning(randomObstacle.laneSpawnDelay);
-                    tracks[randomTrackID + 1].DelayTrackSpawning(randomObstacle.laneSpawnDelay);
-                    tracks[randomTrackID + 2].DelayTrackSpawning(randomObstacle.laneSpawnDelay);
                 }
                 break;
 

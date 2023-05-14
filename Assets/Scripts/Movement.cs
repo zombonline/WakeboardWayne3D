@@ -42,13 +42,11 @@ public class Movement : MonoBehaviour
 
         CheckForLandingAfterRamp();
         CheckForRailing();
-        
-      
     }
 
     void CheckForRailing()
     {
-        if(isGrounded && tracks[currentTrack].railingActive)
+        if(isGrounded && tracks[currentTrack].GetComponentInChildren<RailCheck>().railingActive)
         {
             isGrinding = true;
             GetComponent<Animator>().SetBool("isGrinding", true);
@@ -134,17 +132,17 @@ public class Movement : MonoBehaviour
 
     void RailingDismountHop()
     {
-        rb.AddForce(Vector3.up * (jumpForce / 2), ForceMode.Impulse);
+        rb.AddForce(Vector3.up * (jumpForce / 3), ForceMode.Impulse);
     }
     private void SwitchLane(int dir)
     {
         //Do not move if no track to desired position
-        if (currentTrack + dir < 0)
+        if (currentTrack + dir < 0 || currentTrack + dir > tracks.Length -1)
         {
             return;
         }
         //Do not move if track to desired position and player is not airborne or already on a railing
-        else if (tracks[currentTrack + dir].railingActive && isGrounded && !isGrinding)
+        else if (tracks[currentTrack + dir].GetComponentInChildren<RailCheck>().railingActive && isGrounded && !isGrinding)
         {
             return;
         }
@@ -178,29 +176,37 @@ public class Movement : MonoBehaviour
 
                     case TouchPhase.Ended:
                         direction = touch.position - swipeStart;
+                        //if player swipes both left and up or right and down etc. a comparison between the distance is made, if they swiped more up then up is used etc.
 
-                        //Swiped left - attempt to move to left lane
-                        if (direction.x < -swipeValue) {SwitchLane(-1);}
+                        //Swiped left or right
 
-                        //Swiped right - attempt to move to right lane
-                        else if (direction.x > swipeValue) {SwitchLane(1);}
-
-                        //Swiped up
-                        else if (direction.y > swipeValue)
+                        if(Mathf.Abs(direction.x) > swipeValue || Mathf.Abs(direction.y) > swipeValue)
                         {
-                            //Jump if on ground and not airborne from ramp
-                            if(isGrounded && !airborneFromRamp) {Jump();}
-                            //perform trick if airborne from ramp
-                            else if(!isGrounded && airborneFromRamp) {RampTrick("backFlip");}
-                        }
+                            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                            {
+                                //Swiped left - attempt to move to left lane
+                                if (direction.x < -swipeValue) { SwitchLane(-1); }
 
-                        //Swiped Down
-                        else if(direction.y < -swipeValue)
-                        {
-                            //perform trick if airborne from ramp
-                            if (!isGrounded && airborneFromRamp) {RampTrick("frontFlip");}
+                                //Swiped right - attempt to move to right lane
+                                else if (direction.x > swipeValue) { SwitchLane(1); }
+                            }
+                            else
+                            {
+                                if (direction.y > swipeValue)
+                                {
+                                    //Jump if on ground and not airborne from ramp
+                                    if (isGrounded && !airborneFromRamp) { Jump(); }
+                                    //perform trick if airborne from ramp
+                                    else if (!isGrounded && airborneFromRamp) { RampTrick("backFlip"); }
+                                }
+                                //Swiped Down
+                                else if (direction.y < -swipeValue)
+                                {
+                                    //perform trick if airborne from ramp
+                                    if (!isGrounded && airborneFromRamp) { RampTrick("frontFlip"); }
+                                }
+                            }
                         }
-
                         //No swipe made 
                         else
                         {

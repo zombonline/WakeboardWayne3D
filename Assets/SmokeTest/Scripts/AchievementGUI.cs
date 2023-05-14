@@ -45,7 +45,7 @@ namespace SmokeTest
 
             if (GUILayout.Button("Ach Reveal Incremental", GUILayout.Height(height), GUILayout.ExpandWidth(true)))
             {
-                DoAchievementReveal(GPGSIds.achievement_achievement_hidden_incremental);
+                DoAchievementReveal(GPGSIds.achievement_achievementhiddenincremental);
             }
 
             GUILayout.EndHorizontal();
@@ -63,7 +63,7 @@ namespace SmokeTest
 
             if (GUILayout.Button("Ach Increment Hidden", GUILayout.ExpandHeight(true)))
             {
-                DoAchievementIncrement(GPGSIds.achievement_achievement_hidden_incremental);
+                DoAchievementIncrement(GPGSIds.achievement_achievementhiddenincremental);
             }
 
             GUILayout.EndHorizontal();

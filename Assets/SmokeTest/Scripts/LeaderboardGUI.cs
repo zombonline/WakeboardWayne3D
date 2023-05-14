@@ -102,7 +102,7 @@ namespace SmokeTest
             SetStandBy("Posting score: " + score);
             Social.ReportScore(
                 score,
-                GPGSIds.leaderboard_leaders_in_smoketesting,
+                GPGSIds.leaderboard_leaders,
                 (bool success) =>
                 {
                     EndStandBy();
@@ -120,7 +120,7 @@ namespace SmokeTest
         internal void DoSocialLoadScores()
         {
             PlayGamesPlatform.Instance.LoadScores(
-                GPGSIds.leaderboard_leaders_in_smoketesting,
+                GPGSIds.leaderboard_leaders,
                 LeaderboardStart.PlayerCentered,
                 /* rowCount= */ 25,
                 LeaderboardCollection.Social,
@@ -136,7 +136,7 @@ namespace SmokeTest
         internal void DoPublicLoadScores()
         {
             PlayGamesPlatform.Instance.LoadScores(
-                GPGSIds.leaderboard_leaders_in_smoketesting,
+                GPGSIds.leaderboard_leaders,
                 LeaderboardStart.PlayerCentered,
                 /* rowCount= */ 25,
                 LeaderboardCollection.Public,
@@ -181,7 +181,7 @@ namespace SmokeTest
         {
             ILeaderboard lb = PlayGamesPlatform.Instance.CreateLeaderboard();
             lb.userScope = UserScope.FriendsOnly;
-            lb.id = GPGSIds.leaderboard_leaders_in_smoketesting;
+            lb.id = GPGSIds.leaderboard_leaders;
             lb.LoadScores(ok =>
             {
                 if (ok)

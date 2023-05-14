@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour
@@ -8,6 +9,8 @@ public class ObjectMovement : MonoBehaviour
     [SerializeField] public float maxMultiplier, multiplierIncrease, multiplierIncreaseTime;
     float multiplier = 1;
     float timer;
+
+    [SerializeField] TextMeshProUGUI SPEEDDISPLAY;
 
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class ObjectMovement : MonoBehaviour
                 multiplier += multiplierIncrease;
             }
         }
-
+        SPEEDDISPLAY.text = (speed * multiplier).ToString() + "... multiplier = " + multiplier.ToString();
         transform.Translate(Vector3.forward * speed * multiplier * Time.deltaTime);
         if(transform.childCount == 0)
         {
