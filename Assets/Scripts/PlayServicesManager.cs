@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GooglePlayGames.BasicApi.SavedGame;
+
 
 public class PlayServicesManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class PlayServicesManager : MonoBehaviour
     {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
+
 
     internal void ProcessAuthentication(SignInStatus status)
     {

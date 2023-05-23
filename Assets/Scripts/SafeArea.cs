@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SafeArea : MonoBehaviour
 {
     RectTransform rectTransform;
     Rect safeArea;
     Vector2 minAnchor, maxAnchor;
-
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -21,6 +21,7 @@ public class SafeArea : MonoBehaviour
         maxAnchor.y /= Screen.height;
         rectTransform.anchorMin = minAnchor;
         rectTransform.anchorMax = maxAnchor;
+
     }
 
 }
