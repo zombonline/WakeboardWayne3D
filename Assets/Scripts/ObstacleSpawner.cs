@@ -17,6 +17,20 @@ public class ObstacleSpawner : MonoBehaviour
         timer = timeBetweenSpawns;
     }
 
+    public void ResetObstacles()
+    {
+        timer = 5f;
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        foreach(Track track in FindObjectsOfType<Track>())
+        {
+            track.spawnDisabled= false;
+            track.GetComponentInChildren<RailCheck>().railingActive= false;
+        }
+    }
+
     private void Update()
     {
         timer -= Time.deltaTime * timerEffector;
@@ -93,6 +107,8 @@ public class ObstacleSpawner : MonoBehaviour
 
         var newObject = Instantiate(randomObstacle.prefab, spawnPos, Quaternion.identity);
         newObject.transform.parent = transform;
+
+        Destroy(newObject, 60f);
     }
 
    

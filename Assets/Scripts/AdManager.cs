@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.Events;
+
 public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsShowListener, IUnityAdsLoadListener
 {
+    [SerializeField] UnityEvent rewardedAdFinished, rewardedAdSkipped, rewardedAdFailed;
 
     private void Start()
     {
@@ -19,9 +22,18 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         }
     }
 
+    public void PlayRewardedAd()
+    {
+        if(Advertisement.isInitialized)
+        {
+            Advertisement.Load("Rewarded_Android", this);
+            Advertisement.Show("Rewarded_Android", this);
+        }
+    }
+
     public void OnInitializationComplete()
     {
-        Debug.Log("Unity Ads initialization complete.");
+        Debug.Log("Unity Ads Initialization Complete.");
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
@@ -31,10 +43,12 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
+
     }
 
     public void OnUnityAdsShowStart(string placementId)
     {
+
     }
 
     public void OnUnityAdsShowClick(string placementId)
@@ -43,6 +57,21 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
+        if(placementId == "Rewarded_Android")
+        {
+            if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+            {
+                rewardedAdFinished.Invoke();
+            }
+            else if(showCompletionState == UnityAdsShowCompletionState.SKIPPED)
+            {
+                rewardedAdFinished.Invoke();
+            }
+            else
+            {
+                rewardedAdFailed.Invoke();
+            }
+        }
     }
 
     public void OnUnityAdsAdLoaded(string placementId)

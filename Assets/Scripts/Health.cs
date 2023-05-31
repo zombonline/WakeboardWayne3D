@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+
 public class Health : MonoBehaviour
 {
     int hitPoints;
@@ -13,10 +15,16 @@ public class Health : MonoBehaviour
     [SerializeField] TextMeshProUGUI healthText;
 
     [SerializeField] SkinnedMeshRenderer mesh;
+
+    [SerializeField] UnityEvent onDeath;
     private void Awake()
     {
         hitPoints = maxHitPoints;
         UpdateHealthUI();
+    }
+    private void Start()
+    {
+        mesh = GetComponentInChildren<SkinnedMeshRenderer>();    
     }
 
     private void UpdateHealthUI()
@@ -43,6 +51,11 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void RefreshHealth()
+    {
+        hitPoints = maxHitPoints;
+    }
+
     IEnumerator EnableInvincibility()
     {
         canHit= false;
@@ -58,6 +71,6 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        SceneManager.LoadScene("Main Menu");
+        onDeath.Invoke();
     }
 }

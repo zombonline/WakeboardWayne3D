@@ -8,6 +8,9 @@ TagManager:
   - ThreeLane
   - ObstaclePrefab
   - BGM
+  - Player Model
+  - Board Model
+  - Pet Model
   layers:
   - Default
   - TransparentFX

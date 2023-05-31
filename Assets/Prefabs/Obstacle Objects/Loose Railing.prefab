@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d624c21af56a84c478054ed237506520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmoColor: {r: 0, g: 1, b: 0, a: 0.5}
 --- !u!54 &8102143264082368297
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,7 +191,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7034545070575195412, guid: f53ad726948e56441a73d2e329a298ab,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4110146
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034545070575195412, guid: f53ad726948e56441a73d2e329a298ab,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0006
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2044068548628919688, guid: f53ad726948e56441a73d2e329a298ab, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f53ad726948e56441a73d2e329a298ab, type: 3}
 --- !u!4 &5483848917969908356 stripped
 Transform:
