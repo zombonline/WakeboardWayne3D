@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float swipeValue = 100f;
     [Tooltip("Time value the player needs to perform a second tap by to perform a double tap.")]
     [SerializeField] float doubleTapTime;
+
     float doubleTapTimer;
     [Tooltip("How quickly the player moves between lanes after a swipe.")]
     [SerializeField] float speed;
@@ -28,11 +29,18 @@ public class Movement : MonoBehaviour
 
     bool airborneFromRamp = false;
 
+    [SerializeField] Animator animator;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         transform.position = tracks[currentTrack].transform.position;
+    }
+
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
@@ -49,12 +57,12 @@ public class Movement : MonoBehaviour
         if(isGrounded && tracks[currentTrack].GetComponentInChildren<RailCheck>().railingActive)
         {
             isGrinding = true;
-            GetComponent<Animator>().SetBool("isGrinding", true);
+            animator.SetBool("isGrinding", true);
         }
         else
         {
             isGrinding = false;
-            GetComponent<Animator>().SetBool("isGrinding", false);
+            animator.SetBool("isGrinding", false);
         }
     }
 
@@ -110,7 +118,7 @@ public class Movement : MonoBehaviour
         Debug.DrawRay(raycastStartPosition.position, Vector2.down * raycastLength, Color.red);
         isGrounded = hit;
 
-        GetComponent<Animator>().SetBool("isGrounded", isGrounded);
+        animator.SetBool("isGrounded", isGrounded);
     }
 
    
@@ -237,7 +245,7 @@ public class Movement : MonoBehaviour
 
     private void RampTrick(string trickAnimation)
     {
-        GetComponent<Animator>().SetTrigger(trickAnimation);
+        animator.SetTrigger(trickAnimation);
         FindObjectOfType<SlowMotion>().ActivateSlowMotion();
         FindObjectOfType<Score>().AddScore(100f);
         FindObjectOfType<RampTrickComboManager>().TrickPeformed(trickAnimation);
