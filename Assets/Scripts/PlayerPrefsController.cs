@@ -37,28 +37,14 @@ public class PlayerPrefsController : MonoBehaviour
 
 
     #region SETTINGS METHODS
-    public void SetSFXVolume(System.Single volume = -1f, float volOverride = -1f)
+    public void SetSFXVolume(System.Single volume = -1f)
     {
-        if(volume != -1f)
-        {
             PlayerPrefs.SetFloat(SFX_VOLUME_KEY, volume);
-        }
-        else if(volOverride != -1f)
-        {
-            PlayerPrefs.SetFloat(SFX_VOLUME_KEY, volOverride);
-        }
     }
 
-    public void SetBGMVolume(System.Single volume = -1f, float volOverride = -1f)
+    public void SetBGMVolume(System.Single volume = -1f)
     {
-        if (volume != -1f)
-        {
             PlayerPrefs.SetFloat(BGM_VOLUME_KEY, volume);
-        }
-        else if (volOverride != -1f)
-        {
-            PlayerPrefs.SetFloat(BGM_VOLUME_KEY, volOverride);
-        }
     }
 
 
