@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] Obstacle[] prefabs, looseRamps, looseRailings, looseObstacles;
+    [SerializeField] Obstacle[] obstacles;
     [SerializeField] Track[] tracks;
     [SerializeField] float timeBetweenSpawns;
 
-    [SerializeField] float prefabChance, looseRampChance, looseRailingChance, looseObstacleChance;
+    float maxChanceValue;
     float timer;
     public float timerEffector;
 
     private void Awake()
     {
         timer = timeBetweenSpawns;
+
+        foreach(var obstacle in obstacles)
+        {
+            maxChanceValue += obstacle.chanceToSpawn;
+        }
     }
 
     public void ResetObstacles()
@@ -36,42 +41,30 @@ public class ObstacleSpawner : MonoBehaviour
         timer -= Time.deltaTime * timerEffector;
         if(timer <= 0)
         {
-            var randomNumber = Random.Range(0, 100f);
-            if (randomNumber < prefabChance)
+            var randomNumber = Random.Range(0,maxChanceValue);
+            var number = 0f;
+            foreach (var obstacle in obstacles)
             {
-                SpawnObstacle(prefabs);
-            }
-            else if(randomNumber < prefabChance + looseRampChance)
-            {
-                SpawnObstacle(looseRamps);
-            }
-            else if(randomNumber < prefabChance + looseRampChance + looseRailingChance)
-            {
-                SpawnObstacle(looseRailings);
-            }
-            else
-            {
-                SpawnObstacle(looseObstacles);
+                number += obstacle.chanceToSpawn;
+                if(number >= randomNumber)
+                {
+                    SpawnObstacle(obstacle);
+                    break;
+                }
             }
         }
     }
-    private void SpawnObstacle(Obstacle[] obstacleList)
+    private void SpawnObstacle(Obstacle obstacle)
     {
-
-        var randomObstacle = obstacleList[Random.Range(0, obstacleList.Length)];
-
         bool unableToSpawn = false;
         var randomTrackID = 0;
-        switch (randomObstacle.obstacleType)
+        switch (obstacle.obstacleType)
         {
             case ObstacleType.singleLane:
                 randomTrackID = Random.Range(0, tracks.Length);
                 if (tracks[randomTrackID].spawnDisabled)
                 {
                     unableToSpawn = true;
-                }
-                else
-                {
                 }
                     break;
 
@@ -81,9 +74,6 @@ public class ObstacleSpawner : MonoBehaviour
                 {
                     unableToSpawn = true;
                 }
-                else
-                {
-                }
                     break;
             case ObstacleType.tripleLane:
                 randomTrackID = 1;
@@ -91,21 +81,18 @@ public class ObstacleSpawner : MonoBehaviour
                 {
                     unableToSpawn = true;
                 }
-                else
-                {
-                }
                 break;
 
         }
         if(unableToSpawn)
         {
-            timer = timeBetweenSpawns / 1.5f;
+            timer = timeBetweenSpawns / 2f;
             return;
         }
         timer = timeBetweenSpawns;
         var spawnPos = new Vector3(tracks[randomTrackID].transform.position.x, tracks[randomTrackID].transform.position.y, -40);
 
-        var newObject = Instantiate(randomObstacle.prefab, spawnPos, Quaternion.identity);
+        var newObject = Instantiate(obstacle.prefab, spawnPos, Quaternion.identity);
         newObject.transform.parent = transform;
 
         Destroy(newObject, 60f);

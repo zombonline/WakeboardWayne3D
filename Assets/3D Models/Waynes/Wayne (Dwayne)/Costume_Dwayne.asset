@@ -18,7 +18,7 @@ MonoBehaviour:
   itemDesc: "No one knows what the deal with Dwayne really is... a fan? an imposter?
     Wayne from dimension WK\u03A3342?"
   storePlacePurchase: 0
-  unlocked: 1
+  SHOP_ITEM_UNLOCKED_KEY: costume_dwayne_unlocked
   cost: 2000
   model: {fileID: 919132149155446097, guid: b114f9a14d28ae7469c9eb7acd4a2993, type: 3}
   ItemID: 1

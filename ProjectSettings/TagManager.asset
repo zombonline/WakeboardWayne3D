@@ -11,6 +11,7 @@ TagManager:
   - Player Model
   - Board Model
   - Pet Model
+  - Rope Holder
   layers:
   - Default
   - TransparentFX

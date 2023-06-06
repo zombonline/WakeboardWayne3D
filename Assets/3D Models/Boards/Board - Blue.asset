@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: Blue Board
   itemDesc: WOW IT BLUE
   storePlacePurchase: 0
-  unlocked: 1
+  SHOP_ITEM_UNLOCKED_KEY: board_blue_unlocked
   cost: 500
-  model: {fileID: 919132149155446097, guid: 622bf42ab1c6648438b15662ea28b492, type: 3}
+  model: {fileID: 919132149155446097, guid: 95bcad270df74a241887ed0c4afe143c, type: 3}
   ItemID: 1

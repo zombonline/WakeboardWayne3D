@@ -17,7 +17,8 @@ public class ShopItem : ScriptableObject
     public string itemName;
     [TextArea(2, 5)]
     public string itemDesc;
-    public bool storePlacePurchase = false, unlocked = false;
+    public bool storePlacePurchase = false;
+    public string SHOP_ITEM_UNLOCKED_KEY;
     public int cost;
     public GameObject model;
     public int ItemID;

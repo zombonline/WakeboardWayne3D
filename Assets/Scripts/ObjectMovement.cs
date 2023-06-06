@@ -10,7 +10,6 @@ public class ObjectMovement : MonoBehaviour
     float multiplier = 1;
     float timer;
 
-    [SerializeField] TextMeshProUGUI SPEEDDISPLAY;
 
     private void Awake()
     {
@@ -29,7 +28,6 @@ public class ObjectMovement : MonoBehaviour
                 multiplier += multiplierIncrease;
             }
         }
-        SPEEDDISPLAY.text = (speed * multiplier).ToString() + "... multiplier = " + multiplier.ToString();
         transform.Translate(Vector3.forward * speed * multiplier * Time.deltaTime);
         if(transform.childCount == 0)
         {

@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: Green Board
   itemDesc: This board is green and you can purchase it :o
   storePlacePurchase: 0
-  unlocked: 1
+  SHOP_ITEM_UNLOCKED_KEY: board_green_unlocked
   cost: 650
   model: {fileID: 919132149155446097, guid: be9e97b13d099614dae9a887c78232b2, type: 3}
   ItemID: 0

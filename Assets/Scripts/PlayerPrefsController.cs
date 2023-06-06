@@ -22,21 +22,43 @@ public class PlayerPrefsController : MonoBehaviour
 
     #endregion
 
+    #region SCORE AND CURRENCY
+    public const string COINS_KEY = "coins";
+    public const string HIGH_SCORE_KEY = "high_score";
+
+    #endregion
+
     private void Awake()
     {
         AssignModels();
     }
 
+    
+
 
     #region SETTINGS METHODS
-    public void SetSFXVolume(System.Single volume)
+    public void SetSFXVolume(System.Single volume = -1f, float volOverride = -1f)
     {
-        PlayerPrefs.SetFloat(SFX_VOLUME_KEY, volume);
+        if(volume != -1f)
+        {
+            PlayerPrefs.SetFloat(SFX_VOLUME_KEY, volume);
+        }
+        else if(volOverride != -1f)
+        {
+            PlayerPrefs.SetFloat(SFX_VOLUME_KEY, volOverride);
+        }
     }
 
-    public void SetBGMVolume(System.Single volume)
+    public void SetBGMVolume(System.Single volume = -1f, float volOverride = -1f)
     {
-        PlayerPrefs.SetFloat(BGM_VOLUME_KEY, volume);
+        if (volume != -1f)
+        {
+            PlayerPrefs.SetFloat(BGM_VOLUME_KEY, volume);
+        }
+        else if (volOverride != -1f)
+        {
+            PlayerPrefs.SetFloat(BGM_VOLUME_KEY, volOverride);
+        }
     }
 
 
@@ -58,6 +80,14 @@ public class PlayerPrefsController : MonoBehaviour
     #endregion
 
     #region CUSTOMISATION METHODS
+
+    public void SetCustomisation(ShopItem shopItem)
+    {
+        if (shopItem.itemType == ItemType.Costume) { PlayerPrefs.SetInt(COSTUME_ID_KEY, shopItem.ItemID); }
+        else if (shopItem.itemType == ItemType.Board) { PlayerPrefs.SetInt(BOARD_ID_KEY, shopItem.ItemID); }
+        else if (shopItem.itemType == ItemType.Pet) { PlayerPrefs.SetInt(PET_ID_KEY, shopItem.ItemID); }
+    }
+
     public void SetCostume(int costume)
     {
         PlayerPrefs.SetInt(COSTUME_ID_KEY, costume);
@@ -74,10 +104,10 @@ public class PlayerPrefsController : MonoBehaviour
     public void AssignModels()
     {
         var wayne = GameObject.FindWithTag("Player Model");
-        var board = GameObject.FindWithTag("Board Model");
-        var pet = GameObject.FindWithTag("Pet Model");
         ShowModel(wayneArray, wayne, COSTUME_ID_KEY);
+        var board = GameObject.FindWithTag("Board Model");
         ShowModel(boardArray, board, BOARD_ID_KEY);
+        var pet = GameObject.FindWithTag("Pet Model");
     }
 
     private void ShowModel(GameObject[] modelArray, GameObject modelPos, string key)
@@ -101,4 +131,19 @@ public class PlayerPrefsController : MonoBehaviour
         newModel.transform.localEulerAngles = Vector3.zero;
     }
     #endregion
+
+    #region SCORE AND CURRENCY METHODS
+
+    public void SetCoins(int coins)
+    {
+        PlayerPrefs.SetInt(COINS_KEY, coins);
+    }
+
+    public void SetHighScore(float highScore)
+    {
+        PlayerPrefs.SetFloat(HIGH_SCORE_KEY, highScore);
+    }
+
+    #endregion
+
 }
