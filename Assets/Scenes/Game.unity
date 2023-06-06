@@ -2978,7 +2978,7 @@ GameObject:
   - component: {fileID: 1155131069}
   - component: {fileID: 1155131070}
   m_Layer: 7
-  m_Name: Wayne
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3052,7 +3052,7 @@ MonoBehaviour:
   isGrounded: 1
   isGrinding: 0
   raycastStartPosition: {fileID: 1325900528}
-  raycastLength: 0.44
+  raycastLength: 0.62
   raycastLayer:
     serializedVersion: 2
     m_Bits: 8
