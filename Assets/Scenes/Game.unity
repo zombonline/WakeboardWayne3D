@@ -3521,6 +3521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1242880713}
   - component: {fileID: 1242880714}
+  - component: {fileID: 1242880715}
   m_Layer: 0
   m_Name: Time Control
   m_TagString: Untagged
@@ -3553,6 +3554,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d56148dd5486d44be1d8af92292c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1242880715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242880712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a34f0e927aec540bec399c5dbb5c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1261301962
@@ -4151,7 +4164,6 @@ GameObject:
   - component: {fileID: 1507887677}
   - component: {fileID: 1507887676}
   - component: {fileID: 1507887678}
-  - component: {fileID: 1507887679}
   m_Layer: 0
   m_Name: Obstacle Spawner
   m_TagString: Railing
@@ -4180,6 +4192,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe5f2b9bd9c90ae4da447e893aedbfe5, type: 2}
   - {fileID: 11400000, guid: 96e6e1a1734a8c34c8563cf78c8e788c, type: 2}
   - {fileID: 11400000, guid: 10c91bb648cab5a49904e4c143078a73, type: 2}
+  - {fileID: 11400000, guid: 5fbe3388ca57f3e4fa91d5df07f55c2e, type: 2}
   tracks:
   - {fileID: 1705723191}
   - {fileID: 1190240822}
@@ -4218,18 +4231,6 @@ MonoBehaviour:
   maxMultiplier: 2
   multiplierIncrease: 0.025
   multiplierIncreaseTime: 5
---- !u!114 &1507887679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507887675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a34f0e927aec540bec399c5dbb5c4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1563100764
 GameObject:
   m_ObjectHideFlags: 0

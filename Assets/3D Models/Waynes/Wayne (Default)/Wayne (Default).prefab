@@ -4392,6 +4392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8667867822093391685}
   - component: {fileID: 9205580432816943277}
+  - component: {fileID: 798628758573786603}
   m_Layer: 0
   m_Name: Wayne (Default)
   m_TagString: Untagged
@@ -4428,7 +4429,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8b56b54e115c27244a43961fb19f0042, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -4436,6 +4437,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &798628758573786603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287084493007359487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f61c430e51aec249a43382a6f41366d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  methodsToCall:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8572259646782548076
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,4 +15,5 @@ public class Obstacle : ScriptableObject
     public GameObject prefab;
     public float laneSpawnDelay;
     public float chanceToSpawn;
+
 }

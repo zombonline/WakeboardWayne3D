@@ -245,6 +245,10 @@ public class Movement : MonoBehaviour
 
     private void RampTrick(string trickAnimation)
     {
+        if(isGrounded)
+        {
+            return;
+        }
         animator.SetTrigger(trickAnimation);
         FindObjectOfType<SlowMotion>().ActivateSlowMotion();
         FindObjectOfType<Score>().AddScore(100f);
