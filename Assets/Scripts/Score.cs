@@ -33,7 +33,6 @@ public class Score : MonoBehaviour
         {
             scoreText.fontSize = fontSize + 5f;
             var differenceSize = (((int)Math.Round(score, 3) - (int)Math.Round(scoreDisplayText, 3)) / 100) * 3;
-            Debug.Log(differenceSize);
             scoreDisplayText += 1f + differenceSize ;
             if(scoreDisplayText > score)
             {

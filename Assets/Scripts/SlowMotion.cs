@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class SlowMotion : MonoBehaviour
@@ -10,24 +11,49 @@ public class SlowMotion : MonoBehaviour
     private void Awake()
     {
         normalGravityScale = GameObject.FindWithTag("Player").GetComponent<Movement>().downwardVelocityCap;
+    }
+
+    public void ActivateSlowMotion(float desiredValue, float transitionTime)
+    {
+        StartCoroutine(TransitionTimeScale(desiredValue, transitionTime));
 
     }
 
-    public void ActivateSlowMotion()
+    IEnumerator TransitionTimeScale(float desiredValue,float transitionTime)
     {
-        
-        if (speedPercentage >= 1f)
+        if (desiredValue < Time.timeScale)
         {
-            speedPercentage = .5f;
-            StartCoroutine(EffectFactors());
+            var incrementTime = (transitionTime / desiredValue - Time.timeScale) / 100;
+            while (Time.timeScale != desiredValue)
+            {
+                Time.timeScale -= .01f;
+                Debug.Log("Hello!");
+                yield return new WaitForSecondsRealtime(incrementTime);
+                if(desiredValue>= Time.timeScale)
+                {
+                    Time.timeScale= desiredValue;
+                }
+            }
         }
         else
         {
-            speedPercentage = .5f;
+            var incrementTime = (transitionTime / desiredValue - Time.timeScale) / 100;
+            while (Time.timeScale != desiredValue)
+            {
+
+                Time.timeScale += .01f;
+                Debug.Log("Hello!");
+                yield return new WaitForSecondsRealtime(incrementTime);
+                if (desiredValue <= Time.timeScale)
+                {
+                    Time.timeScale = desiredValue;
+                }
+            }
         }
     }
 
-    IEnumerator EffectFactors()
+
+    /*IEnumerator EffectFactors()
     {
         while (speedPercentage < 1f)
         {
@@ -38,7 +64,7 @@ public class SlowMotion : MonoBehaviour
 
             FindObjectOfType<ObstacleSpawner>().timerEffector = (speedPercentage / 100);
             yield return new WaitForSeconds(.015f);
-            */
+            
 
             if(GameObject.FindWithTag("Player").GetComponent<Movement>().isGrounded)
             {
@@ -50,7 +76,7 @@ public class SlowMotion : MonoBehaviour
         /*FindObjectOfType<ObjectMovement>().speed = FindObjectOfType<ObjectMovement>().currentSpeed;
         GameObject.FindWithTag("Player").GetComponent<Movement>().downwardVelocityCap = normalGravityScale;
         FindObjectOfType<ObstacleSpawner>().timerEffector = 1f;
-        yield return null;*/
-    }
+        yield return null;
+    }*/
 
 }

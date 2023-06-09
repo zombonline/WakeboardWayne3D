@@ -14,6 +14,9 @@ public class Ramp : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * force, ForceMode.Impulse);
             rb.GetComponent<Movement>().AirborneFromRamp();
+            FindObjectOfType<SlowMotion>().ActivateSlowMotion(0.5f, .75f);
+            FindObjectOfType<ObjectMovement>().ignoreMultiplier = true;
+
         }
     }
 }

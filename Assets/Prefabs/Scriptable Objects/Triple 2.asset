@@ -15,4 +15,4 @@ MonoBehaviour:
   obstacleType: 2
   prefab: {fileID: 316924456740088072, guid: ce3beefacfc7fff4f84163cbfdd47c21, type: 3}
   laneSpawnDelay: 0
-  chanceToSpawn: 20
+  chanceToSpawn: 15

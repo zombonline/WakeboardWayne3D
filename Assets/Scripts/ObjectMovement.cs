@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour
 {
-    [SerializeField] public float currentSpeed, speed;
+    [SerializeField] public float startSpeed, speed;
     [SerializeField] public float maxMultiplier, multiplierIncrease, multiplierIncreaseTime;
     float multiplier = 1;
     float timer;
+
+    public bool ignoreMultiplier = false;
 
 
     private void Awake()
     {
         timer = multiplierIncreaseTime;
-
+        speed = startSpeed * multiplier;
     }
 
     private void Update()
@@ -26,12 +28,16 @@ public class ObjectMovement : MonoBehaviour
             {
                 timer = multiplierIncreaseTime;
                 multiplier += multiplierIncrease;
+                speed = startSpeed * multiplier;
             }
         }
-        transform.Translate(Vector3.forward * speed * multiplier * Time.deltaTime);
-        if(transform.childCount == 0)
+        if (ignoreMultiplier)
         {
-            transform.position = Vector3.zero;
+            transform.Translate(Vector3.forward * startSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     }
 }

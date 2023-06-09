@@ -73,6 +73,9 @@ public class Movement : MonoBehaviour
             FindObjectOfType<RampTrickComboManager>().EndCombo();
             airborneFromRamp = false;
             StartCoroutine(TransitionCamFov(60));
+            FindObjectOfType<SlowMotion>().ActivateSlowMotion(1f, .5f);
+            FindObjectOfType<ObjectMovement>().ignoreMultiplier = false;
+
         }
     }
     public void AirborneFromRamp()
@@ -124,7 +127,7 @@ public class Movement : MonoBehaviour
    
     private void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(tracks[currentTrack].transform.position.x, transform.position.y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(tracks[currentTrack].transform.position.x, transform.position.y, 0), Time.unscaledDeltaTime * speed);
 
         //jump velocity fall off
         if (!isGrounded && rb.velocity.y < jumpVelocityFallOff)
@@ -250,7 +253,6 @@ public class Movement : MonoBehaviour
             return;
         }
         animator.SetTrigger(trickAnimation);
-        FindObjectOfType<SlowMotion>().ActivateSlowMotion();
         FindObjectOfType<Score>().AddScore(100f);
         FindObjectOfType<RampTrickComboManager>().TrickPeformed(trickAnimation);
     }

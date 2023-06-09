@@ -25,7 +25,6 @@ public class BarrierBall : MonoBehaviour
     {
         if (System.Math.Round(transform.localPosition.y, 3) != System.Math.Round(targetHeight, 3))
         {
-            Debug.Log("Moving");
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, new Vector3(transform.localPosition.x, targetHeight, transform.localPosition.z), floatSpeed * Time.deltaTime);
         }
         else
