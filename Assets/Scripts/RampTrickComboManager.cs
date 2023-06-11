@@ -60,8 +60,6 @@ public class RampTrickComboManager : MonoBehaviour
     {
         promptImage.enabled = false;
         FindObjectOfType<Score>().AddScore((fullComboScoreReward * (currentCombo / targetCombo)));
-        Debug.Log(currentCombo);
-        Debug.Log((fullComboScoreReward * (currentCombo / targetCombo)));
         promptedTrick = "null";
         currentCombo = 0;
     }

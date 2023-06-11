@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class TimeControl : MonoBehaviour
 {
+    public bool timePaused = false;
+
+    float timeScaleBeforePause;
     public void PauseTime()
     {
+        timeScaleBeforePause = Time.timeScale;
+        timePaused= true;
         Time.timeScale = 0f;
     }
 
     public void ResumeTime()
     {
-        Time.timeScale = 1f;
+        timePaused= false;
+        Time.timeScale = timeScaleBeforePause;
     }
 
 }

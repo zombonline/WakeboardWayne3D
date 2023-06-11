@@ -57,40 +57,84 @@ public class ObstacleSpawner : MonoBehaviour
     private void SpawnObstacle(Obstacle obstacle)
     {
         bool unableToSpawn = false;
-        var randomTrackID = 0;
+        Track chosenTrack = null;
         switch (obstacle.obstacleType)
         {
             case ObstacleType.singleLane:
-                randomTrackID = Random.Range(0, tracks.Length);
-                if (tracks[randomTrackID].spawnDisabled)
+                var randomTrackID = Random.Range(0, tracks.Length);
+                chosenTrack = tracks[randomTrackID];
+                //random track is disabled
+                if (chosenTrack.spawnDisabled)
                 {
-                    unableToSpawn = true;
+                    //each track that is enabled is added to a new temp list
+                    List<Track> enabledTracks = new List<Track>();
+                    foreach(Track track in tracks)
+                    {
+                        if(!track.spawnDisabled)
+                        {
+                            enabledTracks.Add(track);
+                        }
+                    }
+                    //a new randomtrackID is chosen from that list.
+                    chosenTrack = tracks[Random.Range(0, enabledTracks.Count)];
+
+                    //if no useable track is found, unable to spawn flag is raised
+                    if(chosenTrack.spawnDisabled)
+                    {
+                        unableToSpawn= true;
+                    }
                 }
                     break;
 
             case ObstacleType.doubleLane:
-                randomTrackID = Random.Range(0, tracks.Length-1);
-                if (tracks[randomTrackID].spawnDisabled || tracks[randomTrackID + 1].spawnDisabled)
+                randomTrackID = Random.Range(0, tracks.Length - 1);
+                chosenTrack = tracks[randomTrackID];
+                var secondaryTrack = tracks[randomTrackID + 1];
+
+                //if randomly selected tracks disabled
+                if (chosenTrack.spawnDisabled || secondaryTrack.spawnDisabled)
                 {
-                    unableToSpawn = true;
+
+                    //check other pair option depending on what original random pair was
+                    if (randomTrackID == tracks.Length - 1)
+                    {
+                        chosenTrack = tracks[0];
+                        secondaryTrack = tracks[1];
+                    }
+                    else
+                    {
+                        chosenTrack = tracks[1];
+                        secondaryTrack = tracks[2];
+                    }
+                    //if no useable track is found, unable to spawn flag is raised
+                    if (chosenTrack.spawnDisabled || secondaryTrack.spawnDisabled)
+                    {
+                        unableToSpawn = true;
+                    }
                 }
                     break;
             case ObstacleType.tripleLane:
-                randomTrackID = 1;
-                if (tracks[randomTrackID].spawnDisabled || tracks[randomTrackID + 1].spawnDisabled || tracks[randomTrackID-1].spawnDisabled)
+                foreach(var track in tracks)
                 {
-                    unableToSpawn = true;
+                    //select centre track to spawn
+                    chosenTrack = tracks[1];
+
+                    //check if any track is disabled
+                    if(track.spawnDisabled)
+                    {
+                        unableToSpawn = true;
+                    }
+
                 }
                 break;
-
         }
         if(unableToSpawn)
         {
-            timer = timeBetweenSpawns / 2f;
+            timer = timeBetweenSpawns / 5f;
             return;
         }
         timer = timeBetweenSpawns;
-        var spawnPos = new Vector3(tracks[randomTrackID].transform.position.x, tracks[randomTrackID].transform.position.y, -40);
+        var spawnPos = new Vector3(chosenTrack.transform.position.x, chosenTrack.transform.position.y, -40);
 
         var newObject = Instantiate(obstacle.prefab, spawnPos, Quaternion.identity);
         newObject.transform.parent = transform;

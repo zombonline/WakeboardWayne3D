@@ -27,11 +27,11 @@ public class Movement : MonoBehaviour
 
     Vector2 swipeStart, direction;
 
-    bool airborneFromRamp = false;
+    public bool airborneFromRamp = false;
 
     [SerializeField] Animator animator;
 
-
+    float DELETELATER = 0;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,11 +45,15 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         SwipeControls();
-        Move();
         GroundCheck();
 
         CheckForLandingAfterRamp();
         CheckForRailing();
+    }
+    private void FixedUpdate()
+    {
+        Move();
+
     }
 
     void CheckForRailing()
@@ -68,8 +72,18 @@ public class Movement : MonoBehaviour
 
     void CheckForLandingAfterRamp()
     {
+        if (airborneFromRamp)
+        {
+            if (transform.position.y > DELETELATER)
+            {
+                DELETELATER = transform.position.y;
+            }
+        }
+
         if(isGrounded && airborneFromRamp)
         {
+            Debug.Log(DELETELATER);
+            DELETELATER = 0;
             FindObjectOfType<RampTrickComboManager>().EndCombo();
             airborneFromRamp = false;
             StartCoroutine(TransitionCamFov(60));

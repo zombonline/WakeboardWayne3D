@@ -26,13 +26,16 @@ public class SlowMotion : MonoBehaviour
             var incrementTime = (transitionTime / desiredValue - Time.timeScale) / 100;
             while (Time.timeScale != desiredValue)
             {
-                Time.timeScale -= .01f;
-                Debug.Log("Hello!");
-                yield return new WaitForSecondsRealtime(incrementTime);
-                if(desiredValue>= Time.timeScale)
+                if(!FindObjectOfType<TimeControl>().timePaused)
                 {
-                    Time.timeScale= desiredValue;
+                    Time.timeScale -= .01f;
+                    if (desiredValue >= Time.timeScale)
+                    {
+                        Time.timeScale = desiredValue;
+                    }
                 }
+                yield return new WaitForSecondsRealtime(incrementTime);
+
             }
         }
         else
@@ -40,14 +43,16 @@ public class SlowMotion : MonoBehaviour
             var incrementTime = (transitionTime / desiredValue - Time.timeScale) / 100;
             while (Time.timeScale != desiredValue)
             {
-
-                Time.timeScale += .01f;
-                Debug.Log("Hello!");
-                yield return new WaitForSecondsRealtime(incrementTime);
-                if (desiredValue <= Time.timeScale)
+                if (!FindObjectOfType<TimeControl>().timePaused)
                 {
-                    Time.timeScale = desiredValue;
+                    Time.timeScale += .01f;
+                    if (desiredValue <= Time.timeScale)
+                    {
+                        Time.timeScale = desiredValue;
+                    }
                 }
+                yield return new WaitForSecondsRealtime(incrementTime);
+
             }
         }
     }
