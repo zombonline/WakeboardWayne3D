@@ -4,32 +4,28 @@ using UnityEngine;
 
 public class FloorParticles : MonoBehaviour
 {
-    [SerializeField] ParticleSystem trailParticles, splashParticles;
+    [SerializeField] ParticleSystem trailParticles, splashParticles, grindParticles;
 
-    bool playerGrounded,playerGroundedLastFrame;
+    bool playerGrounded, playerGrinding ,playerGroundedLastFrame;
     Transform player;
 
     private void Awake()
     {
         player = FindObjectOfType<Movement>().transform;
+        Debug.Log(gameObject.name);
     }
 
     private void Update()
     {
-        if(!player.GetComponent<Movement>().isGrinding && player.GetComponent<Movement>().isGrounded)
-        {
-            playerGrounded = true;
-        }
-        else
-        {
-            playerGrounded= false;
-        }
+        playerGrounded = player.GetComponent<Movement>().isGrounded;
+        playerGrinding = player.GetComponent<Movement>().isGrinding;
+        
 
-        if(playerGrounded)
+        if(playerGrounded && !playerGrinding)
         {
             trailParticles.Play();
         }
-        if(playerGrounded && !playerGroundedLastFrame)
+        if(playerGrounded && !playerGrinding && !playerGroundedLastFrame)
         {
             splashParticles.transform.position = new Vector3(player.position.x, 0, player.position.z);
             splashParticles.Play();
@@ -37,6 +33,14 @@ public class FloorParticles : MonoBehaviour
         if(!playerGrounded)
         {
             trailParticles.Stop();
+        }
+        if(playerGrinding && playerGrounded)
+        {
+            grindParticles.Play();
+        }
+        else
+        {
+            grindParticles.Stop();
         }
 
         playerGroundedLastFrame = playerGrounded;

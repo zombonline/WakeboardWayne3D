@@ -31,7 +31,6 @@ public class Movement : MonoBehaviour
 
     [SerializeField] Animator animator;
 
-    float DELETELATER = 0;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -72,23 +71,14 @@ public class Movement : MonoBehaviour
 
     void CheckForLandingAfterRamp()
     {
-        if (airborneFromRamp)
-        {
-            if (transform.position.y > DELETELATER)
-            {
-                DELETELATER = transform.position.y;
-            }
-        }
-
         if(isGrounded && airborneFromRamp)
         {
-            Debug.Log(DELETELATER);
-            DELETELATER = 0;
             FindObjectOfType<RampTrickComboManager>().EndCombo();
             airborneFromRamp = false;
             StartCoroutine(TransitionCamFov(60));
             FindObjectOfType<SlowMotion>().ActivateSlowMotion(1f, .5f);
             FindObjectOfType<ObjectMovement>().ignoreMultiplier = false;
+            FindObjectOfType<Health>().EnableInvincibility(.2f, false);
 
         }
     }

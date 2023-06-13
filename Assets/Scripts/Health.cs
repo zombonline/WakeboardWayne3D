@@ -32,36 +32,40 @@ public class Health : MonoBehaviour
         healthText.text = "Hit Points: " + hitPoints + "/" + maxHitPoints;
     }
 
-    public void TakeDamage()
+    public bool TakeDamage()
     {
-        if(!canHit)
+        var returnValue = canHit;
+        if (canHit)
         {
-            return;
+            hitPoints--;
+            UpdateHealthUI();
+            if (hitPoints <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                EnableInvincibility(invincibleTimeLength, true);
+            }
         }
-
-        hitPoints--;
-        UpdateHealthUI();
-        if(hitPoints <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            StartCoroutine(EnableInvincibility());
-        }
+        return returnValue;
     }
 
     public void RefreshHealth()
     {
         hitPoints = maxHitPoints;
     }
-
-    IEnumerator EnableInvincibility()
+    public void EnableInvincibility(float duration, bool flashModel)
+    {
+        StartCoroutine(EnableInvincibilityCoroutine(invincibleTimeLength, flashModel ));
+    }
+    IEnumerator EnableInvincibilityCoroutine(float duration, bool flashModel)
     {
         canHit= false;
-        for(float i = 0; i < invincibleTimeLength; i += 0.2f)
+        for(float i = 0; i < duration; i += 0.2f)
         {
-            mesh.enabled = false;
+            if(flashModel)
+            { mesh.enabled = false; }
             yield return new WaitForSeconds(0.1f);
            mesh.enabled = true;
             yield return new WaitForSeconds(0.1f);

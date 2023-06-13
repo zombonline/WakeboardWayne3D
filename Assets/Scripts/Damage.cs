@@ -8,8 +8,10 @@ public class Damage : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Health>().TakeDamage();
-            Destroy(gameObject);
+            if(other.GetComponent<Health>().TakeDamage())
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
