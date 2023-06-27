@@ -54,7 +54,13 @@ public class RampTrickComboManager : MonoBehaviour
     public void EndCombo()
     {
         promptImage.enabled = false;
-        FindObjectOfType<Score>().AddScore((fullComboScoreReward * (currentCombo / targetCombo)));
+
+        string scoreMessage = currentCombo.ToString() + "/" + targetCombo.ToString() + " Combo";
+        if(currentCombo == targetCombo)
+        {
+            scoreMessage = "Full Combo";
+        }
+        FindObjectOfType<Score>().AddScore((Mathf.RoundToInt(fullComboScoreReward * (currentCombo / targetCombo))),scoreMessage);
         promptedTrick = "null";
         currentCombo = 0;
         comboInProgess=false;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour, IInteractable
 {
-    [SerializeField] float scoreValue = 10f;
+    [SerializeField] int scoreValue = 10;
     void IInteractable.Interact(GameObject player)
     {
         if (!FindObjectOfType<Score>()) { Debug.LogError("No 'score' object found!"); return; }
