@@ -11,5 +11,4 @@ public class MainMenu : MonoBehaviour
     {
         coinsText.text = PlayerPrefs.GetInt(PlayerPrefsController.COINS_KEY).ToString("0000");
     }
-
 }

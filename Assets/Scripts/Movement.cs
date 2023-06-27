@@ -43,11 +43,10 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        SwipeControls();
         GroundCheck();
 
         CheckForLandingAfterRamp();
-        CheckForRailing();
+        RailingCheck();
     }
     private void FixedUpdate()
     {
@@ -55,17 +54,14 @@ public class Movement : MonoBehaviour
 
     }
 
-    void CheckForRailing()
+    void RailingCheck()
     {
-        if(isGrounded && tracks[currentTrack].GetComponentInChildren<RailCheck>().railingActive)
+        isGrinding = (isGrounded && tracks[currentTrack].GetComponentInChildren<RailCheck>().railingActive);
+        animator.SetBool("isGrinding", isGrinding);
+
+        if(isGrinding && transform.position.y < 1.5f)
         {
-            isGrinding = true;
-            animator.SetBool("isGrinding", true);
-        }
-        else
-        {
-            isGrinding = false;
-            animator.SetBool("isGrinding", false);
+            transform.position = new Vector3(transform.position.x, 2.4f, transform.position.z);
         }
     }
 
@@ -78,8 +74,8 @@ public class Movement : MonoBehaviour
             StartCoroutine(TransitionCamFov(60));
             FindObjectOfType<SlowMotion>().ActivateSlowMotion(1f, .5f);
             FindObjectOfType<ObjectMovement>().ignoreMultiplier = false;
-            FindObjectOfType<Health>().EnableInvincibility(.2f, false);
-
+            GetComponent<Health>().EnableInvincibility(.2f, false);
+            GetComponent<RampTrickComboManager>().EndCombo();
         }
     }
     public void AirborneFromRamp()
@@ -147,122 +143,33 @@ public class Movement : MonoBehaviour
 
     void RailingDismountHop()
     {
-        rb.AddForce(Vector3.up * (jumpForce / 3), ForceMode.Impulse);
+
+        rb.AddForce(Vector3.up * (jumpForce / 3f), ForceMode.Impulse);
     }
-    private void SwitchLane(int dir)
+    public void SwitchLane(int dir)
     {
-        //Do not move if no track to desired position
+        //Do not move to track if it does not exist.
         if (currentTrack + dir < 0 || currentTrack + dir > tracks.Length -1)
         {
             return;
         }
-        //Do not move if track to desired position and player is not airborne or already on a railing
-        else if (tracks[currentTrack + dir].GetComponentInChildren<RailCheck>().railingActive && isGrounded && !isGrinding)
-        {
-            return;
-        }
-        //Everything is ok to move, dismount hop if currently grinding
+        //Everything is ok to move, mounting/dismount hop if coming from or going to a railing lane.
         else
         {
-            if (isGrinding)
+            if (isGrinding || tracks[currentTrack + dir].GetComponentInChildren<RailCheck>().railingActive)
             {
                 RailingDismountHop();
             }
             currentTrack = currentTrack + dir;
         }
     }
-    private void SwipeControls()
-    {
-        doubleTapTimer -= Time.deltaTime;
+    
 
-        if (Input.touchCount > 0)
+    public void Jump()
+    {
+        if (isGrounded && !airborneFromRamp)
         {
-            foreach (Touch touch in Input.touches)
-            {
-                switch (touch.phase)
-                {
-                    case TouchPhase.Began:
-                        swipeStart = touch.position;
-                        break;
-
-                    case TouchPhase.Moved:
-
-                        break;
-
-                    case TouchPhase.Ended:
-                        direction = touch.position - swipeStart;
-                        //if player swipes both left and up or right and down etc. a comparison between the distance is made, if they swiped more up then up is used etc.
-
-                        //Swiped left or right
-
-                        if(Mathf.Abs(direction.x) > swipeValue || Mathf.Abs(direction.y) > swipeValue)
-                        {
-                            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-                            {
-                                //Swiped left - attempt to move to left lane
-                                if (direction.x < -swipeValue) { SwitchLane(-1); }
-
-                                //Swiped right - attempt to move to right lane
-                                else if (direction.x > swipeValue) { SwitchLane(1); }
-                            }
-                            else
-                            {
-                                if (direction.y > swipeValue)
-                                {
-                                    //Jump if on ground and not airborne from ramp
-                                    if (isGrounded && !airborneFromRamp) { Jump(); }
-                                    //perform trick if airborne from ramp
-                                    else if (!isGrounded && airborneFromRamp) { RampTrick("backFlip"); }
-                                }
-                                //Swiped Down
-                                else if (direction.y < -swipeValue)
-                                {
-                                    //perform trick if airborne from ramp
-                                    if (!isGrounded && airborneFromRamp) { RampTrick("frontFlip"); }
-                                }
-                            }
-                        }
-                        //No swipe made 
-                        else
-                        {
-                            //two taps performed in quick succession && player is airborne
-                            if (doubleTapTimer > 0f && airborneFromRamp)
-                            {
-                                //perform trick if right side of screen double tapped
-                                if (touch.position.x > Screen.width / 2) { RampTrick("rightSpin"); }
-
-                                //perofrm trick if left side of screen double tapped
-                                else if (touch.position.x <= Screen.width / 2) { RampTrick("leftSpin"); }
-
-                                //reset doubletap
-                                doubleTapTimer = 0f;
-                            }
-
-                            //if tap this frame was not preceeded by a tap within the time frame, begin the timer to check for double tap on next tap.
-                            else if (doubleTapTimer <= 0f)
-                            {
-                                doubleTapTimer = doubleTapTime;
-                            }
-                        }
-                        break;
-                }
-            }
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
-    }
-
-    private void RampTrick(string trickAnimation)
-    {
-        if(isGrounded)
-        {
-            return;
-        }
-        animator.SetTrigger(trickAnimation);
-        FindObjectOfType<Score>().AddScore(100f);
-        FindObjectOfType<RampTrickComboManager>().TrickPeformed(trickAnimation);
-    }
-
-    private void Jump()
-    {
-        rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//This script will allow animations running in unscaled time to be affected by scaled time being set to 0. To allow animations to pause.
 public class AnimationTime : MonoBehaviour
 {
     Animator animator;

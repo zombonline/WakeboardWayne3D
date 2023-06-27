@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 221455831}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -300,6 +300,7 @@ Transform:
   - {fileID: 1242880713}
   - {fileID: 1026825990}
   - {fileID: 514824113}
+  - {fileID: 747722393}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -583,6 +584,68 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!850595691 &221455831
+LightingSettings:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 4
+  m_GIWorkflowMode: 1
+  m_EnableBakedLightmaps: 1
+  m_EnableRealtimeLightmaps: 0
+  m_RealtimeEnvironmentLighting: 1
+  m_BounceScale: 1
+  m_AlbedoBoost: 1
+  m_IndirectOutputScale: 1
+  m_UsingShadowmask: 1
+  m_BakeBackend: 1
+  m_LightmapMaxSize: 1024
+  m_BakeResolution: 40
+  m_Padding: 2
+  m_LightmapCompression: 3
+  m_AO: 0
+  m_AOMaxDistance: 1
+  m_CompAOExponent: 1
+  m_CompAOExponentDirect: 0
+  m_ExtractAO: 0
+  m_MixedBakeMode: 2
+  m_LightmapsBakeMode: 1
+  m_FilterMode: 1
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
+  m_ExportTrainingData: 0
+  m_TrainingDataDestination: TrainingData
+  m_RealtimeResolution: 2
+  m_ForceWhiteAlbedo: 0
+  m_ForceUpdates: 0
+  m_FinalGather: 0
+  m_FinalGatherRayCount: 256
+  m_FinalGatherFiltering: 1
+  m_PVRCulling: 1
+  m_PVRSampling: 1
+  m_PVRDirectSampleCount: 32
+  m_PVRSampleCount: 512
+  m_PVREnvironmentSampleCount: 256
+  m_PVREnvironmentReferencePointCount: 2048
+  m_LightProbeSampleCountMultiplier: 4
+  m_PVRBounces: 2
+  m_PVRMinBounces: 1
+  m_PVREnvironmentMIS: 1
+  m_PVRFilteringMode: 1
+  m_PVRDenoiserTypeDirect: 1
+  m_PVRDenoiserTypeIndirect: 1
+  m_PVRDenoiserTypeAO: 1
+  m_PVRFilterTypeDirect: 0
+  m_PVRFilterTypeIndirect: 0
+  m_PVRFilterTypeAO: 0
+  m_PVRFilteringGaussRadiusDirect: 1
+  m_PVRFilteringGaussRadiusIndirect: 5
+  m_PVRFilteringGaussRadiusAO: 2
+  m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+  m_PVRFilteringAtrousPositionSigmaIndirect: 2
+  m_PVRFilteringAtrousPositionSigmaAO: 1
+  m_PVRTiledBaking: 0
 --- !u!1 &326569381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,6 +1796,53 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &747722392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 747722393}
+  - component: {fileID: 747722394}
+  m_Layer: 0
+  m_Name: Particle Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &747722393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747722392}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 82460040}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &747722394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747722392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53aba138e97fb3a4faab61401e6432d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailParticles: {fileID: 851773802}
+  splashParticles: {fileID: 1958205668}
+  grindParticles: {fileID: 2021191126}
 --- !u!1 &758090221
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,7 +2761,6 @@ GameObject:
   m_Component:
   - component: {fileID: 977841299}
   - component: {fileID: 977841298}
-  - component: {fileID: 977841300}
   - component: {fileID: 977841297}
   - component: {fileID: 977841296}
   m_Layer: 3
@@ -2740,21 +2849,6 @@ Transform:
   m_Father: {fileID: 1919871031}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &977841300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977841295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53aba138e97fb3a4faab61401e6432d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailParticles: {fileID: 851773802}
-  splashParticles: {fileID: 1958205668}
-  grindParticles: {fileID: 2021191126}
 --- !u!1 &1026825989
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,9 +3235,12 @@ GameObject:
   - component: {fileID: 1155131066}
   - component: {fileID: 1155131065}
   - component: {fileID: 1155131068}
+  - component: {fileID: 1155131073}
+  - component: {fileID: 1155131072}
   - component: {fileID: 1155131067}
   - component: {fileID: 1155131069}
   - component: {fileID: 1155131070}
+  - component: {fileID: 1155131071}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -3307,6 +3404,137 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1155131071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155131062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975079f582a519e45af26e71ac4d0779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1155131072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155131062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c447bb65575544f9f90fe9f136d745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeValue: 120
+  doubleTapTime: 0.2
+  onSwipeLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1155131068}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: SwitchLane
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSwipeRight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1155131068}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: SwitchLane
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSwipeUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1155131073}
+        m_TargetAssemblyTypeName: RampTrickComboManager, Assembly-CSharp
+        m_MethodName: RampTrick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: backFlip
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1155131068}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSwipeDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1155131073}
+        m_TargetAssemblyTypeName: RampTrickComboManager, Assembly-CSharp
+        m_MethodName: RampTrick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: frontFlip
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDoubleTap:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1155131073}
+        m_TargetAssemblyTypeName: RampTrickComboManager, Assembly-CSharp
+        m_MethodName: RampTrick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: doubleTap
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1155131073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155131062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae30bd44f07a2fd478c2be3bc454f910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeUpIcon: {fileID: 21300000, guid: ac291cece7d72aa4b825f11e0d174835, type: 3}
+  swipeDownIcon: {fileID: 21300000, guid: 1d9495a2fa4b22447a13cb42fe953726, type: 3}
+  doubleTapIcon: {fileID: 21300000, guid: 4f4149596acb86f46adb6e8b0f51486e, type: 3}
+  promptImage: {fileID: 759176005}
+  targetCombo: 3
+  fullComboScoreReward: 500
 --- !u!1 &1190240819
 GameObject:
   m_ObjectHideFlags: 0
@@ -4264,7 +4492,6 @@ GameObject:
   - component: {fileID: 1357173695}
   - component: {fileID: 1357173694}
   - component: {fileID: 1357173693}
-  - component: {fileID: 1357173697}
   - component: {fileID: 1357173692}
   - component: {fileID: 1357173696}
   m_Layer: 5
@@ -4370,25 +4597,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2130641133}
   score: 0
---- !u!114 &1357173697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357173691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae30bd44f07a2fd478c2be3bc454f910, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swipeUpImage: {fileID: 21300000, guid: ac291cece7d72aa4b825f11e0d174835, type: 3}
-  swipeDownImage: {fileID: 21300000, guid: 1d9495a2fa4b22447a13cb42fe953726, type: 3}
-  tapLeftImage: {fileID: 21300000, guid: f98ee9f862e0b06489be34f902a0c070, type: 3}
-  tapRightImage: {fileID: 21300000, guid: 4f4149596acb86f46adb6e8b0f51486e, type: 3}
-  promptImage: {fileID: 759176005}
-  targetCombo: 4
-  fullComboScoreReward: 500
 --- !u!1 &1367828347
 GameObject:
   m_ObjectHideFlags: 0
